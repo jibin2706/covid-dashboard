@@ -13,6 +13,7 @@
     "react": "16.13.0",
     "react-countup": "^4.3.3",
     "react-dom": "16.13.0",
+    "react-ga": "^2.7.0",
     "recharts": "^1.8.5"
   },
   "devDependencies": {
