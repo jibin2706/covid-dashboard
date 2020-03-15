@@ -1,0 +1,34 @@
+/* x axis */
+.frappe-chart .x.axis .line-vertical {
+  display: none;
+}
+
+/* y axis */
+.frappe-chart .y.axis .line-horizontal {
+  display: none;
+}
+
+.frappe-chart .y.axis .line-horizontal,
+.frappe-chart .y.axis .line-horizontal text {
+  display: none;
+}
+
+.frappe-chart .legend {
+  display: none;
+}
+
+/* x axis */
+.frappe-chart .x.axis .line-vertical,
+.frappe-chart .x.axis text {
+  display: none;
+}
+
+/* y axis */
+.frappe-chart .y.axis .line-horizontal,
+.frappe-chart .y.axis text {
+  display: none;
+}
+
+.chart-legend {
+  display: none;
+}

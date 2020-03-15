@@ -1,5 +1,8 @@
 import Head from "next/head";
 import fetch from "node-fetch";
+import TimeseriesGraph from "../src/components/TimeseriesGraph";
+
+import css from "../src/styles/index.module.scss";
 
 const Home = ({ global }) => (
   <div className="container">
@@ -10,37 +13,42 @@ const Home = ({ global }) => (
 
     <main>
       <h1 className="title">COVID 19</h1>
-      <div className="card">
-        Confirmed
-        {global.confirmed}
-      </div>
-      <div className="card">
-        Deaths
-        {global.deaths}
-      </div>
-      <div className="card">
-        Recovered
-        {global.recovered}
-      </div>
+      <section className={css.cardContainer}>
+        <div className={css.card}>
+          <h2 className={css.cardHeader}>Confirmed</h2>
+          <h2 className={css.countNumber}>
+            {Number(global.confirmed).toLocaleString()}
+          </h2>
+        </div>
+        <div className={css.card}>
+          <h2 className={css.cardHeader}>Deaths</h2>
+          <h2 className={css.countNumber}>
+            {Number(global.deaths).toLocaleString()}
+          </h2>
+        </div>
+        <div className={css.card}>
+          <h2 className={css.cardHeader}>Recovered</h2>
+          <h2 className={css.countNumber}>
+            {Number(global.recovered).toLocaleString()}
+          </h2>
+        </div>
+      </section>
+
+      <section className={css.card} style={{ padding: 0, margin: "2rem 0" }}>
+        <TimeseriesGraph />
+      </section>
     </main>
 
     <style jsx>{`
       .container {
         min-height: 100vh;
+        max-width: 1000px;
+        margin: auto;
         padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
       }
 
       main {
         padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
       }
     `}</style>
 

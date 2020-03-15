@@ -1,0 +1,39 @@
+.cardContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding: 2rem 1rem;
+}
+
+.cardHeader {
+  font-size: 1rem;
+  font-weight: 300;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.countNumber {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (min-width: 578px) {
+  .cardContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .cardHeader {
+  }
+
+  .countNumber {
+    font-size: 3rem;
+  }
+}
