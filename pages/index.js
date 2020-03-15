@@ -29,19 +29,19 @@ const Home = ({ global }) => {
       <main>
         <h1 className={css.title}>COVID-19 </h1>
         <section className={css.cardContainer}>
-          <div className={css.card}>
+          <div className={css.card} style={{ color: "#ffc107" }}>
             <h2 className={css.cardHeader}>Confirmed</h2>
             <h2 className={css.countNumber}>
               {Number(confirmedCount).toLocaleString()}
             </h2>
           </div>
-          <div className={css.card}>
+          <div className={css.card} style={{ color: "#dc3545" }}>
             <h2 className={css.cardHeader}>Deaths</h2>
             <h2 className={css.countNumber}>
               {Number(deathCount).toLocaleString()}
             </h2>
           </div>
-          <div className={css.card}>
+          <div className={css.card} style={{ color: "#82ca9d" }}>
             <h2 className={css.cardHeader}>Recovered</h2>
             <h2 className={css.countNumber}>
               {Number(recoveredCount).toLocaleString()}
@@ -49,10 +49,35 @@ const Home = ({ global }) => {
           </div>
         </section>
 
-        {/* <section className={css.card} style={{ padding: 0, margin: "2rem 0" }}>
+        <section
+          className={css.card}
+          style={{
+            padding: 0,
+            margin: "2rem 0",
+            width: "100%",
+            height: "400px"
+          }}
+        >
           <TimeseriesGraph />
-        </section> */}
+        </section>
       </main>
+
+      <footer className={css.footer}>
+        Data taken from{" "}
+        <a
+          className={css.link}
+          href="https://github.com/CSSEGISandData/COVID-19"
+        >
+          transformating data
+        </a>{" "}
+        from Johns Hopkins CSSE &{" "}
+        <a
+          className={css.link}
+          href="https://github.com/mathdroid/covid-19-api"
+        >
+          covid-19-api
+        </a>
+      </footer>
     </div>
   );
 };
