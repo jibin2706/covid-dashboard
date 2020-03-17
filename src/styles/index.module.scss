@@ -8,9 +8,17 @@
   font-weight: 400;
 }
 
+.subtitle {
+  margin: 0.5rem 0.25rem;
+}
+
 .cardContainer {
   display: grid;
   grid-gap: 1rem;
+}
+
+.countryCardContainer {
+  animation: fade-in 300ms ease-in;
 }
 
 .card {
@@ -34,6 +42,23 @@
   margin: 0;
 }
 
+.loadingSection {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  background: #444444;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  outline: none;
+}
+
 .footer {
   font-size: 90%;
   font-weight: 300;
@@ -44,6 +69,16 @@
 
 .link {
   color: unset;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (min-width: 578px) {
