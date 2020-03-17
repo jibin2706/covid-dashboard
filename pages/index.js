@@ -57,6 +57,7 @@ const Home = ({ global, countries }) => {
       <Head>
         <title>COVID-19</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="theme-color" content="#222222" />
       </Head>
 
       <main>
