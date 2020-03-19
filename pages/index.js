@@ -1,7 +1,11 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import fetch from "node-fetch";
-import TimeseriesGraph from "../src/components/TimeseriesGraph";
 import { useCountUp } from "react-countup";
+
+const TimeseriesGraphClient = dynamic(
+  import("../src/components/TimeseriesGraph")
+);
 
 import css from "../src/styles/index.module.scss";
 
@@ -145,7 +149,7 @@ const Home = ({ global, countries }) => {
             height: "400px"
           }}
         >
-          <TimeseriesGraph />
+          <TimeseriesGraphClient />
         </section>
       </main>
 
