@@ -1,4 +1,4 @@
-import { Tooltip, AreaChart, Area, ResponsiveContainer } from "recharts";
+import { Tooltip, AreaChart, Area, ResponsiveContainer, XAxis } from "recharts";
 
 import globalData from "../../public/data/time-series.json";
 
@@ -16,12 +16,14 @@ function TimeseriesGraph() {
   return (
     <ResponsiveContainer>
       <AreaChart data={data} width={400} height={300}>
+        <XAxis name="Days since 22Feb" dataKey="name"></XAxis>
         <Area
           stackId="1"
           type="linear"
           dataKey="deaths"
           stroke="#dc3545"
           fill="#dc3545"
+          name="Deaths"
         />
         <Area
           stackId="1"
@@ -29,6 +31,7 @@ function TimeseriesGraph() {
           dataKey="recovered"
           stroke="#82ca9d"
           fill="#82ca9d"
+          name="Recovered"
         />
         <Area
           stackId="1"
@@ -36,6 +39,8 @@ function TimeseriesGraph() {
           dataKey="confirmed"
           stroke="#ffc107"
           fill="#ffc107"
+          activeDot={true}
+          name="Confirmed"
         />
 
         <Tooltip />
