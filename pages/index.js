@@ -62,6 +62,18 @@ const Home = ({ global, countries }) => {
         <title>COVID-19</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#222222" />
+        <meta
+          name="description"
+          content="COVID-19 dashboard with stats about global and each country outbreak"
+        />
+        <meta name="application-name" content="COVID-19" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
 
       <main>
@@ -99,7 +111,9 @@ const Home = ({ global, countries }) => {
           value={country}
         >
           {Object.keys(countries).map(country => (
-            <option value={country}>{country}</option>
+            <option key={country} value={country}>
+              {country}
+            </option>
           ))}
         </select>
         {countryData.isLoading && !error ? (
