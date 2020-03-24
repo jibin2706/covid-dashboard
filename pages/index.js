@@ -22,14 +22,19 @@ const Home = ({ global, countries }) => {
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
-    fetch(`https://covid19.mathdro.id/api/countries/${country}/confirmed`)
+    fetch(`https://covid19.mathdro.id/api/countries/${country}`)
       .then(response => response.json())
       .then(data => {
         try {
-          const { confirmed, deaths, recovered } = data[0];
+          const { confirmed, deaths, recovered } = data;
+
           setCountryData({
             isLoading: false,
-            data: { confirmed, deaths, recovered }
+            data: {
+              confirmed: confirmed.value,
+              deaths: deaths.value,
+              recovered: recovered.value
+            }
           });
         } catch {
           setError(`Sorry, can't find data for ${country}`);
@@ -110,9 +115,10 @@ const Home = ({ global, countries }) => {
           onChange={getCountryData}
           value={country}
         >
-          {Object.keys(countries).map(country => (
-            <option key={country} value={country}>
-              {country}
+          {countries.map(country => (
+            <option key={country.name} value={country.name}>
+              {console.log(country)}
+              {country.name}
             </option>
           ))}
         </select>

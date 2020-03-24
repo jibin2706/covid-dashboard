@@ -4,18 +4,16 @@ export default async (req, res) => {
   let totalGlobalCases = { confirmed: 0, deaths: 0, recovered: 0 };
 
   if (req.method === "GET") {
-    await fetch("https://covid19.mathdro.id/api/confirmed")
+    await fetch("https://covid19.mathdro.id/api/")
       .then(response => {
         return response.json();
       })
       .then(result => {
-        result.forEach(item => {
-          totalGlobalCases = {
-            confirmed: totalGlobalCases.confirmed + item.confirmed,
-            deaths: totalGlobalCases.deaths + item.deaths,
-            recovered: totalGlobalCases.recovered + item.recovered
-          };
-        });
+        totalGlobalCases = {
+          confirmed: result.confirmed.value,
+          deaths: result.deaths.value,
+          recovered: result.recovered.value
+        };
       });
 
     res.statusCode = 200;
