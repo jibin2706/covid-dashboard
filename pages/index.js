@@ -117,7 +117,6 @@ const Home = ({ global, countries }) => {
         >
           {countries.map(country => (
             <option key={country.name} value={country.name}>
-              {console.log(country)}
               {country.name}
             </option>
           ))}
