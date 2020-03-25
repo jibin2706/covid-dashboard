@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "next": "^9.3.2-canary.0",
-    "next-offline": "^5.0.0",
+    "next-pwa": "^2.3.1",
     "node-fetch": "^2.6.0",
     "react": "16.13.0",
     "react-countup": "^4.3.3",

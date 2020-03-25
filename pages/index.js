@@ -14,30 +14,15 @@ const Home = ({ global, countries }) => {
     data: {
       confirmed: null,
       deaths: null,
-      recovered: null
-    }
+      recovered: null,
+    },
   });
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
-        navigator.serviceWorker
-          .register("/service-worker.js", { scope: "/" })
-          .then(function(registration) {
-            console.log("SW registered: ", registration);
-          })
-          .catch(function(registrationError) {
-            console.log("SW registration failed: ", registrationError);
-          });
-      });
-    }
-  }, []);
-
-  React.useEffect(() => {
     fetch(`https://covid19.mathdro.id/api/countries/${country}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         try {
           const { confirmed, deaths, recovered } = data;
 
@@ -46,8 +31,8 @@ const Home = ({ global, countries }) => {
             data: {
               confirmed: confirmed.value,
               deaths: deaths.value,
-              recovered: recovered.value
-            }
+              recovered: recovered.value,
+            },
           });
         } catch {
           setError(`Sorry, can't find data for ${country}`);
@@ -55,7 +40,7 @@ const Home = ({ global, countries }) => {
       });
   }, [country]);
 
-  const getCountryData = event => {
+  const getCountryData = (event) => {
     setCountryData({ ...countryData, isLoading: true });
     setCountry(event.target.value);
     setError("");
@@ -63,15 +48,15 @@ const Home = ({ global, countries }) => {
 
   const { countUp: confirmedCount } = useCountUp({
     end: global.confirmed,
-    duration: 1
+    duration: 1,
   });
   const { countUp: deathCount } = useCountUp({
     end: global.deaths,
-    duration: 1
+    duration: 1,
   });
   const { countUp: recoveredCount } = useCountUp({
     end: global.recovered,
-    duration: 1
+    duration: 1,
   });
 
   return (
@@ -82,8 +67,11 @@ const Home = ({ global, countries }) => {
         <meta name="theme-color" content="#222222" />
         <meta name="description" content="COVID-19 dashboard with stats about global and each country outbreak" />
         <meta name="application-name" content="COVID-19" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png" />
+        <link rel="manifest" href="/static/manifest.json" />
       </Head>
 
       <main>
@@ -109,7 +97,7 @@ const Home = ({ global, countries }) => {
           Country Data
         </h2>
         <select className={css.input} placeholder="select country" onChange={getCountryData} value={country}>
-          {countries.map(country => (
+          {countries.map((country) => (
             <option key={country.name} value={country.name}>
               {country.name}
             </option>
@@ -150,7 +138,7 @@ const Home = ({ global, countries }) => {
           style={{
             padding: 0,
             width: "100%",
-            height: "400px"
+            height: "400px",
           }}>
           <TimeseriesGraphClient />
         </section>
