@@ -82,14 +82,17 @@ const Home = ({ global, countries }) => {
           <div className={css.card} style={{ color: "#ffc107" }}>
             <h2 className={css.cardHeader}>Confirmed</h2>
             <h2 className={css.countNumber}>{Number(confirmedCount).toLocaleString()}</h2>
+            <h3 className={css.cardFooter}>{global.confirmed - global.recovered} Active</h3>
           </div>
-          <div className={css.card} style={{ color: "#dc3545" }}>
+          <div className={css.card} style={{ color: "#fd6170" }}>
             <h2 className={css.cardHeader}>Deaths</h2>
             <h2 className={css.countNumber}>{Number(deathCount).toLocaleString()}</h2>
+            <h3 className={css.cardFooter}>{Math.floor((global.deaths / global.confirmed) * 100)}% Fatality Rate</h3>
           </div>
           <div className={css.card} style={{ color: "#82ca9d" }}>
             <h2 className={css.cardHeader}>Recovered</h2>
             <h2 className={css.countNumber}>{Number(recoveredCount).toLocaleString()}</h2>
+            <h3 className={css.cardFooter}>{Math.floor((global.recovered / global.confirmed) * 100)}% Recovery Rate</h3>
           </div>
         </section>
 
@@ -113,7 +116,7 @@ const Home = ({ global, countries }) => {
               <h2 className={css.cardHeader}>Confirmed</h2>
               <h2 className={css.countNumber}>{Number(countryData.data.confirmed).toLocaleString()}</h2>
             </div>
-            <div className={css.card} style={{ color: "#dc3545" }}>
+            <div className={css.card} style={{ color: "#fd6170" }}>
               <h2 className={css.cardHeader}>Deaths</h2>
               <h2 className={css.countNumber}>{Number(countryData.data.deaths).toLocaleString()}</h2>
             </div>
