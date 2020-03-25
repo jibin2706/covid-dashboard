@@ -84,7 +84,7 @@ const Home = ({ global, countries }) => {
             <h2 className={css.countNumber}>{Number(confirmedCount).toLocaleString()}</h2>
             <h3 className={css.cardFooter}>{global.confirmed - global.recovered} Active</h3>
           </div>
-          <div className={css.card} style={{ color: "#fd6170" }}>
+          <div className={css.card} style={{ color: "#fb7a88" }}>
             <h2 className={css.cardHeader}>Deaths</h2>
             <h2 className={css.countNumber}>{Number(deathCount).toLocaleString()}</h2>
             <h3 className={css.cardFooter}>{Math.floor((global.deaths / global.confirmed) * 100)}% Fatality Rate</h3>
@@ -97,9 +97,14 @@ const Home = ({ global, countries }) => {
         </section>
 
         <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
-          Country Data
+          <label for="country-select">Country Data</label>
         </h2>
-        <select className={css.input} placeholder="select country" onChange={getCountryData} value={country}>
+        <select
+          id="country-select"
+          className={css.input}
+          placeholder="select country"
+          onChange={getCountryData}
+          value={country}>
           {countries.map((country) => (
             <option key={country.name} value={country.name}>
               {country.name}
@@ -115,14 +120,24 @@ const Home = ({ global, countries }) => {
             <div className={css.card} style={{ color: "#ffc107" }}>
               <h2 className={css.cardHeader}>Confirmed</h2>
               <h2 className={css.countNumber}>{Number(countryData.data.confirmed).toLocaleString()}</h2>
+              {/* <h3 className={css.cardFooter}>
+                {Number(countryData.data.confirmed) - Number(countryData.data.recovered)} Active Cases
+              </h3> */}
             </div>
-            <div className={css.card} style={{ color: "#fd6170" }}>
+            <div className={css.card} style={{ color: "#fb7a88" }}>
               <h2 className={css.cardHeader}>Deaths</h2>
               <h2 className={css.countNumber}>{Number(countryData.data.deaths).toLocaleString()}</h2>
+              {/* <h3 className={css.cardFooter}>
+                {Math.floor((Number(countryData.data.deaths) / Number(countryData.data.confirmed)) * 100)}% Fatality
+              </h3> */}
             </div>
             <div className={css.card} style={{ color: "#82ca9d" }}>
               <h2 className={css.cardHeader}>Recovered</h2>
               <h2 className={css.countNumber}>{Number(countryData.data.recovered).toLocaleString()}</h2>
+              {/* <h3 className={css.cardFooter}>
+                {Math.floor((Number(countryData.data.recovered) / Number(countryData.data.confirmed)) * 100)}% Recovery
+                Rate
+              </h3> */}
             </div>
           </section>
         )}
@@ -148,14 +163,21 @@ const Home = ({ global, countries }) => {
       </main>
 
       <footer className={css.footer}>
-        Data taken from{" "}
+        Data taken from&nbsp;
         <a className={css.link} href="https://github.com/CSSEGISandData/COVID-19">
           transformating data
-        </a>{" "}
-        from Johns Hopkins CSSE &{" "}
+        </a>
+        &nbsp; from Johns Hopkins CSSE &&nbsp;
         <a className={css.link} href="https://github.com/mathdroid/covid-19-api">
           covid-19-api
         </a>
+        <br />
+        <p>
+          Developed by &nbsp;
+          <a className={css.link} href="https://jibin.tech">
+            Jibin Thomas
+          </a>
+        </p>
       </footer>
     </div>
   );
