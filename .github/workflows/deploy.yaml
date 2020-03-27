@@ -1,7 +1,12 @@
+name: Scheduled build
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
-        - name: Trigger Zeit Deplyment Webhook
-          run: curl -X GET ${{ secrets.zeit_develop_webhook }}
+      - name: Trigger Zeit Deplyment Webhook
+        run: curl -X GET ${{ secrets.zeit_develop_webhook }}
