@@ -1,0 +1,6 @@
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+    steps:
+        - name: Trigger Zeit Deplyment Webhook
+          run: curl -X GET ${{ secrets.zeit_develop_webhook }}
