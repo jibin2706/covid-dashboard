@@ -97,7 +97,7 @@ const Home = ({ global, countries }) => {
         </section>
 
         <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
-          <label for="country-select">Country Data</label>
+          <label htmlFor="country-select">Country Data</label>
         </h2>
         <select
           id="country-select"
