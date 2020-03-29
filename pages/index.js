@@ -2,6 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import fetch from "node-fetch";
 import { useCountUp } from "react-countup";
+import { showCountryEmoji } from "../src/utils";
 
 const TimeseriesGraphClient = dynamic(import("../src/components/TimeseriesGraph"));
 
@@ -99,6 +100,7 @@ const Home = ({ global, countries }) => {
         <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
           <label htmlFor="country-select">Country Data</label>
         </h2>
+
         <select
           id="country-select"
           className={css.input}
@@ -107,7 +109,7 @@ const Home = ({ global, countries }) => {
           value={country}>
           {countries.map((country) => (
             <option key={country.name} value={country.name}>
-              {country.name}
+              {country.emoji} {country.name}
             </option>
           ))}
         </select>
@@ -188,9 +190,12 @@ export async function getStaticProps() {
   const globalData = await global.json();
 
   const countries = await fetch("https://covid19.mathdro.id/api/countries");
-  const countriesData = await countries.json();
+  let countriesData = await countries.json();
+  countriesData = countriesData.countries.map((country) => {
+    return { ...country, emoji: showCountryEmoji(country.iso2) };
+  });
 
-  return { props: { global: globalData, countries: countriesData.countries } };
+  return { props: { global: globalData, countries: countriesData } };
 }
 
 export default Home;
