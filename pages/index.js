@@ -1,14 +1,14 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import fetch from "node-fetch";
-import { useCountUp } from "react-countup";
 import { showCountryEmoji } from "../src/utils";
 
+import GlobalDataSection from "../src/components/GlobalDataSection";
 const TimeseriesGraphClient = dynamic(import("../src/components/TimeseriesGraph"));
 
 import css from "../src/styles/index.module.scss";
 
-const Home = ({ global, countries }) => {
+const Home = ({ global, countries, allCountries }) => {
   const [country, setCountry] = React.useState("India");
   const [countryData, setCountryData] = React.useState({
     isLoading: true,
@@ -18,6 +18,8 @@ const Home = ({ global, countries }) => {
       recovered: null,
     },
   });
+  const [listData, setListData] = React.useState(allCountries);
+  const [searchTerm, setSearchTerm] = React.useState("");
   const [error, setError] = React.useState("");
 
   React.useEffect(() => {
@@ -47,23 +49,28 @@ const Home = ({ global, countries }) => {
     setError("");
   };
 
-  const { countUp: confirmedCount } = useCountUp({
-    end: global.confirmed,
-    duration: 1,
-  });
-  const { countUp: deathCount } = useCountUp({
-    end: global.deaths,
-    duration: 1,
-  });
-  const { countUp: recoveredCount } = useCountUp({
-    end: global.recovered,
-    duration: 1,
-  });
+  const sortCountryList = (e) => {
+    const value = e.target.value;
+    let result = [];
+
+    if (value === "confirmed") {
+      result = listData.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+    } else if (value === "recovered") {
+      result = listData.sort((a, b) => b.TotalRecovered - a.TotalRecovered);
+    } else if (value === "deaths") {
+      result = listData.sort((a, b) => b.TotalDeaths - a.TotalDeaths);
+    } else {
+      result = allCountries;
+    }
+
+    // HACK: Adding empty array to trigger re-render
+    setListData([...result, []]);
+  };
 
   return (
     <div className={css.container}>
       <Head>
-        <title>COVID-19</title>
+        <title>COVID-19 Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#222222" />
         <meta name="description" content="COVID-19 dashboard with stats about global and each country outbreak" />
@@ -78,24 +85,7 @@ const Home = ({ global, countries }) => {
       <main>
         <h1 className={css.title}>COVID-19 </h1>
 
-        <h2 className={css.subtitle}>Global Data</h2>
-        <section className={css.cardContainer}>
-          <div className={css.card} style={{ color: "#ffc107" }}>
-            <h2 className={css.cardHeader}>Confirmed</h2>
-            <h2 className={css.countNumber}>{Number(confirmedCount).toLocaleString()}</h2>
-            <h3 className={css.cardFooter}>{global.confirmed - global.recovered} Active</h3>
-          </div>
-          <div className={css.card} style={{ color: "#fb7a88" }}>
-            <h2 className={css.cardHeader}>Deaths</h2>
-            <h2 className={css.countNumber}>{Number(deathCount).toLocaleString()}</h2>
-            <h3 className={css.cardFooter}>{Math.floor((global.deaths / global.confirmed) * 100)}% Fatality Rate</h3>
-          </div>
-          <div className={css.card} style={{ color: "#82ca9d" }}>
-            <h2 className={css.cardHeader}>Recovered</h2>
-            <h2 className={css.countNumber}>{Number(recoveredCount).toLocaleString()}</h2>
-            <h3 className={css.cardFooter}>{Math.floor((global.recovered / global.confirmed) * 100)}% Recovery Rate</h3>
-          </div>
-        </section>
+        <GlobalDataSection confirmed={global.confirmed} deaths={global.deaths} recovered={global.recovered} />
 
         <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
           <label htmlFor="country-select">Country Data</label>
@@ -150,6 +140,47 @@ const Home = ({ global, countries }) => {
           </div>
         )}
 
+        <section className={css.card} style={{ padding: 0, marginTop: "4rem" }}>
+          <div className={css.filterSection}>
+            <label>
+              Filter countries
+              <input onChange={(e) => setSearchTerm(e.target.value.toLowerCase())} value={searchTerm} />
+            </label>
+            <label>
+              Sort By
+              <select onChange={sortCountryList}>
+                <option></option>
+                <option value="confirmed">Confirmed</option>
+                <option value="recovered">Recovered</option>
+                <option value="deaths">Deaths</option>
+              </select>
+            </label>
+          </div>
+          <div className={`${css.countryList} ${css.countryListHeader}`}>
+            <span>Country</span>
+            <span>Confirmed</span>
+            <span>Deaths</span>
+            <span>Recovered</span>
+          </div>
+          {listData.map((country) => {
+            if (country.Country && country.TotalConfirmed > 0 && country.Country.toLowerCase().includes(searchTerm))
+              return (
+                <div className={css.countryList} key={country.Country}>
+                  <span>{country.Country}</span>
+                  <span>
+                    <span className={css.dot} style={{ background: "#ffc107" }} /> {country.TotalConfirmed}
+                  </span>
+                  <span>
+                    <span className={css.dot} style={{ background: "#fb7a88" }} /> {country.TotalDeaths}
+                  </span>
+                  <span>
+                    <span className={css.dot} style={{ background: "#82ca9d" }} /> {country.TotalRecovered}
+                  </span>
+                </div>
+              );
+          })}
+        </section>
+
         <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
           Global Outbreak Graph
         </h2>
@@ -195,7 +226,10 @@ export async function getStaticProps() {
     return { ...country, emoji: showCountryEmoji(country.iso2) };
   });
 
-  return { props: { global: globalData, countries: countriesData } };
+  const listData = await fetch("https://api.covid19api.com/summary");
+  const listDataResult = await listData.json();
+
+  return { props: { global: globalData, countries: countriesData, allCountries: listDataResult.Countries } };
 }
 
 export default Home;
