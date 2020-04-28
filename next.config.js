@@ -4,6 +4,7 @@ module.exports = withPWA({
   experimental: {
     modern: true,
     polyfillsOptimization: true,
+    reactRefresh: true,
   },
   pwa: {
     dest: "public",
