@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "next": "^9.4.4",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-ga": "^3.0.0",
