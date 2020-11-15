@@ -1,10 +1,11 @@
+import React from 'react'
 import Head from "next/head";
-import dynamic from "next/dynamic";
-import fetch from "node-fetch";
 import { showCountryEmoji } from "../src/utils";
 
 import GlobalDataSection from "../src/components/GlobalDataSection";
-const TimeseriesGraphClient = dynamic(import("../src/components/TimeseriesGraph"));
+
+// import dynamic from "next/dynamic";
+// const TimeseriesGraphClient = dynamic(import("../src/components/TimeseriesGraph"));
 
 import css from "../src/styles/index.module.scss";
 
@@ -181,7 +182,7 @@ const Home = ({ global, countries, allCountries }) => {
           })}
         </section>
 
-        <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
+        {/* <h2 className={css.subtitle} style={{ marginTop: "2rem" }}>
           Global Outbreak Graph
         </h2>
         <section
@@ -192,7 +193,7 @@ const Home = ({ global, countries, allCountries }) => {
             height: "400px",
           }}>
           <TimeseriesGraphClient />
-        </section>
+        </section> */}
       </main>
 
       <footer className={css.footer}>

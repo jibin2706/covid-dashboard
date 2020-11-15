@@ -1,3 +1,4 @@
+import React from 'react'
 import { initGA, logPageView } from "../src/components/googleAnalytics";
 import "../src/styles/global.scss";
 
